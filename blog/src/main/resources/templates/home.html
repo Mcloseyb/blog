@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog Home</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+        .container {
+            flex: 1;
+        }
+        .sidebar {
+            height: 100%;
+            background-color: #f8f9fa;
+            padding: 15px;
+        }
+        .content {
+            padding: 15px;
+        }
+        .blog-post {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">博客首页</a>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <span class="nav-link">Hello, <span th:text="${username}"></span></span>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/logout">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2 sidebar">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">首页</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">信息</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">个人中心</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">博客发表</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-10 content">
+            <div th:each="blog : ${approvedBlogs}" class="blog-post">
+                <h2 th:text="${blog.title}">标题</h2>
+                <p th:text="${blog.content}">内容</p>
+                <p>
+                    <small th:text="'点赞: ' + ${blog.likesCount}">点赞</small>
+                    <small th:text="'收藏: ' + ${blog.favoritesCount}">收藏</small>
+                    <small th:text="'分类: ' + ${blog.category}">分类</small>
+                    <small th:text="'作者: ' + ${blog.author.username}">作者</small>
+                    <small th:text="'发表日期: ' + ${blog.publishDate}">发表日期</small>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="text-center py-4">
+    <p>博客系统 © 2024</p>
+</footer>
+</body>
+</html>
